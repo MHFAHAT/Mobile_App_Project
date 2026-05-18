@@ -37,4 +37,15 @@
         android:layout_height="wrap_content"
         android:text="Login" />
 
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#1976D2"
+        android:layout_marginTop="20dp" />
+
 </LinearLayout>

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.messmanagement.R
 
-class LoginFragment : Fragment() {
+class RegisterFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -17,17 +17,17 @@ class LoginFragment : Fragment() {
     ): View {
 
         val view = inflater.inflate(
-            R.layout.fragment_login,
+            R.layout.fragment_register,
             container,
             false
         )
 
-        val tvRegister = view.findViewById<TextView>(R.id.tvRegister)
+        val tvLogin = view.findViewById<TextView>(R.id.tvLogin)
 
-        tvRegister.setOnClickListener {
+        tvLogin.setOnClickListener {
 
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, RegisterFragment())
+                .replace(R.id.fragment_container, LoginFragment())
                 .addToBackStack(null)
                 .commit()
         }
