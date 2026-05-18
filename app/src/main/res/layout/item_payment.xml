@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_margin="8dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/textUserId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User ID: R001"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textMonthYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="05-2026"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/textMealCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meal Count: 45"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/textMealRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meal Rate: 85.0"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/textTotalAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Amount: 3825.0"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status: Unpaid"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import com.example.messmanagement.ui.meals.MealsFragment
 import com.example.messmanagement.ui.notices.NoticesFragment
 import com.example.messmanagement.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.messmanagement.ui.payments.PaymentsFragment
 
 class HomeFragment : Fragment() {
 
@@ -50,6 +51,8 @@ class HomeFragment : Fragment() {
                 R.id.nav_meals -> MealsFragment()
 
                 R.id.nav_expenses -> ExpensesFragment()
+
+                R.id.nav_payments -> PaymentsFragment()
 
                 R.id.nav_notices -> NoticesFragment()
 

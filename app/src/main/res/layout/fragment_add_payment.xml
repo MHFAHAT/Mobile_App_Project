@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/editUserId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="User ID (e.g. R001)"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editMonthYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Month-Year (MM-YYYY)"
+            android:layout_marginTop="12dp"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editMealCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Meal Count"
+            android:layout_marginTop="12dp"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editMealRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Meal Rate"
+            android:layout_marginTop="12dp"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/editTotalAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Total Amount"
+            android:layout_marginTop="12dp"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/btnSavePayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Payment"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+</ScrollView>
