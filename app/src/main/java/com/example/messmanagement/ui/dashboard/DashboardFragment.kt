@@ -43,7 +43,9 @@ class DashboardFragment : Fragment() {
 
             sessionManager.logout()
 
-            parentFragmentManager.beginTransaction()
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
                 .replace(
                     R.id.fragment_container,
                     LoginFragment()

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.messmanagement.session.SessionManager
 import com.example.messmanagement.ui.auth.LoginFragment
 import com.example.messmanagement.ui.dashboard.DashboardFragment
-
+import com.example.messmanagement.ui.home.HomeFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
 
             val fragment = if (sessionManager.isLoggedIn()) {
-                DashboardFragment()
+                HomeFragment()
             } else {
                 LoginFragment()
             }

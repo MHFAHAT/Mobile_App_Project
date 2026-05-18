@@ -141,4 +141,53 @@ class UserRepository(context: Context) {
 
         return count
     }
+    fun getUserById(userId: String): User? {
+
+        val db = dbHelper.readableDatabase
+
+        val cursor = db.rawQuery(
+            """
+        SELECT * FROM Users
+        WHERE uid = ?
+        """.trimIndent(),
+            arrayOf(userId)
+        )
+
+        var user: User? = null
+
+        if (cursor.moveToFirst()) {
+
+            user = User(
+
+                uid = cursor.getString(
+                    cursor.getColumnIndexOrThrow("uid")
+                ),
+
+                name = cursor.getString(
+                    cursor.getColumnIndexOrThrow("name")
+                ),
+
+                role = cursor.getString(
+                    cursor.getColumnIndexOrThrow("role")
+                ),
+
+                phone = cursor.getString(
+                    cursor.getColumnIndexOrThrow("phone")
+                ),
+
+                password = cursor.getString(
+                    cursor.getColumnIndexOrThrow("password")
+                ),
+
+                roomNumber = cursor.getString(
+                    cursor.getColumnIndexOrThrow("room_number")
+                )
+            )
+        }
+
+        cursor.close()
+
+        return user
+    }
+
 }

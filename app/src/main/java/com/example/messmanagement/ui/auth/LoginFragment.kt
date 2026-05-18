@@ -13,6 +13,7 @@ import com.example.messmanagement.R
 import com.example.messmanagement.data.repository.UserRepository
 import com.example.messmanagement.session.SessionManager
 import com.example.messmanagement.ui.dashboard.DashboardFragment
+import com.example.messmanagement.ui.home.HomeFragment
 
 class LoginFragment : Fragment() {
 
@@ -79,7 +80,7 @@ class LoginFragment : Fragment() {
                 parentFragmentManager.beginTransaction()
                     .replace(
                         R.id.fragment_container,
-                        DashboardFragment()
+                        HomeFragment()
                     )
                     .commit()
 
