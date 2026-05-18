@@ -1,20 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMeals"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/requestSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today's Meal Request"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <CheckBox
+            android:id="@+id/checkLunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lunch" />
+
+        <CheckBox
+            android:id="@+id/checkDinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dinner"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnSaveRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Request" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnAddMeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Meal"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="end"
         android:layout_margin="16dp" />
 
-</FrameLayout>
+</LinearLayout>
