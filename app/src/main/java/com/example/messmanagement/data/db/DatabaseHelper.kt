@@ -14,7 +14,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
     companion object {
 
         const val DATABASE_NAME = "mess_management.db"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
 
         const val TABLE_USERS = "Users"
         const val TABLE_MEALS = "Meals"
@@ -35,7 +35,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
                 role TEXT NOT NULL CHECK(role IN ('Admin', 'Staff', 'Resident')),
                 phone TEXT UNIQUE,
                 password TEXT NOT NULL,
-                room_number TEXT,
+                room_number TEXT UNIQUE,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP
             )
         """.trimIndent()
@@ -110,12 +110,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
         newVersion: Int
     ) {
 
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_MEAL_REQUESTS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_PAYMENTS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_EXPENSES")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_MEALS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_NOTICES")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_USERS")
+        db.execSQL("DROP TABLE IF EXISTS Users")
+        db.execSQL("DROP TABLE IF EXISTS Meals")
+        db.execSQL("DROP TABLE IF EXISTS MealRequests")
+        db.execSQL("DROP TABLE IF EXISTS Expenses")
+        db.execSQL("DROP TABLE IF EXISTS Payments")
+        db.execSQL("DROP TABLE IF EXISTS Notices")
 
         onCreate(db)
     }

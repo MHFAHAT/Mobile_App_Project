@@ -196,23 +196,57 @@ class UserRepository(context: Context) {
         roomNumber: String
     ): Boolean {
 
-        val db = dbHelper.writableDatabase
+        return try {
 
-        val values = ContentValues().apply {
+            val db = dbHelper.writableDatabase
 
-            put("name", name)
-            put("phone", phone)
-            put("room_number", roomNumber)
+            val values = ContentValues().apply {
+
+                put("name", name)
+                put("phone", phone)
+
+                if (roomNumber.isEmpty()) {
+                    putNull("room_number")
+                } else {
+                    put("room_number", roomNumber)
+                }
+            }
+
+            val result = db.update(
+                "Users",
+                values,
+                "uid = ?",
+                arrayOf(uid)
+            )
+
+            result > 0
+
+        } catch (e: Exception) {
+
+            false
         }
+    }
+    fun isRoomOccupied(
+        roomNumber: String,
+        currentUserId: String
+    ): Boolean {
 
-        val result = db.update(
-            "Users",
-            values,
-            "uid = ?",
-            arrayOf(uid)
+        val db = dbHelper.readableDatabase
+
+        val cursor = db.rawQuery(
+            """
+        SELECT * FROM Users
+        WHERE room_number = ?
+        AND uid != ?
+        """.trimIndent(),
+            arrayOf(roomNumber, currentUserId)
         )
 
-        return result > 0
+        val exists = cursor.count > 0
+
+        cursor.close()
+
+        return exists
     }
 
 }

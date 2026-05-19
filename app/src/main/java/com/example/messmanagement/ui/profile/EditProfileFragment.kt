@@ -91,6 +91,22 @@ class EditProfileFragment : Fragment() {
 
                 return@setOnClickListener
             }
+            if (
+                updatedRoom.isNotEmpty() &&
+                repository.isRoomOccupied(
+                    updatedRoom,
+                    userId
+                )
+            ) {
+
+                Toast.makeText(
+                    requireContext(),
+                    "Room Already Occupied",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                return@setOnClickListener
+            }
 
             val success =
                 repository.updateProfile(
