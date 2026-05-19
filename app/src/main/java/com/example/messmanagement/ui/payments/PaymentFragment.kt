@@ -10,6 +10,7 @@ import com.example.messmanagement.R
 import com.example.messmanagement.data.repository.PaymentRepository
 import com.example.messmanagement.session.SessionManager
 import com.example.messmanagement.ui.payments.AddPaymentFragment
+import android.widget.Toast
 
 class PaymentsFragment : Fragment(R.layout.fragment_payments) {
 
@@ -79,6 +80,38 @@ class PaymentsFragment : Fragment(R.layout.fragment_payments) {
         }
 
         recyclerPayments.adapter =
-            PaymentAdapter(paymentList)
+            PaymentAdapter(paymentList) { payment ->
+
+                val role =
+                    sessionManager.getUserRole()
+
+                if (role == "Resident") {
+                    return@PaymentAdapter
+                }
+
+                val newStatus =
+                    if (payment.status == "Paid") {
+                        "Unpaid"
+                    } else {
+                        "Paid"
+                    }
+
+                val success =
+                    paymentRepository.updatePaymentStatus(
+                        payment.paymentId,
+                        newStatus
+                    )
+
+                if (success) {
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Payment marked as $newStatus",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    loadPayments()
+                }
+            }
     }
 }

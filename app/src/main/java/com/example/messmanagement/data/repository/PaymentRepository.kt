@@ -1,5 +1,6 @@
 package com.example.messmanagement.data.repository
 
+import android.content.ContentValues
 import android.content.Context
 import com.example.messmanagement.data.db.DatabaseHelper
 import com.example.messmanagement.data.model.Payment
@@ -154,5 +155,38 @@ class PaymentRepository(context: Context) {
         )
 
         return result != -1L
+    }
+    fun updatePaymentStatus(
+        paymentId: Int,
+        newStatus: String
+    ): Boolean {
+
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+
+            put("status", newStatus)
+
+            if (newStatus == "Paid") {
+
+                put(
+                    "paid_date",
+                    System.currentTimeMillis().toString()
+                )
+
+            } else {
+
+                put("paid_date", "")
+            }
+        }
+
+        val result = db.update(
+            "Payments",
+            values,
+            "payment_id = ?",
+            arrayOf(paymentId.toString())
+        )
+
+        return result > 0
     }
 }

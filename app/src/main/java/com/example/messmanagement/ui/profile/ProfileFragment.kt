@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import com.example.messmanagement.R
 import com.example.messmanagement.data.repository.UserRepository
 import com.example.messmanagement.session.SessionManager
-
+import android.content.Intent
+import android.widget.Button
+import com.example.messmanagement.MainActivity
 class ProfileFragment : Fragment() {
 
     private lateinit var repository: UserRepository
@@ -35,6 +37,8 @@ class ProfileFragment : Fragment() {
         val tvPhone = view.findViewById<TextView>(R.id.tvPhone)
         val tvRole = view.findViewById<TextView>(R.id.tvRole)
         val tvRoom = view.findViewById<TextView>(R.id.tvRoom)
+        val btnLogout =
+            view.findViewById<Button>(R.id.btnLogout)
 
         val userId = sessionManager.getUserId()
 
@@ -51,7 +55,19 @@ class ProfileFragment : Fragment() {
                 tvRoom.text = "Room: ${user.roomNumber}"
             }
         }
+        btnLogout.setOnClickListener {
 
+            sessionManager.logout()
+
+            val intent = Intent(
+                requireContext(),
+                MainActivity::class.java
+            )
+
+            startActivity(intent)
+
+            requireActivity().finish()
+        }
         return view
     }
 }

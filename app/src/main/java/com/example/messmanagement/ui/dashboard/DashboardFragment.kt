@@ -1,58 +1,70 @@
 package com.example.messmanagement.ui.dashboard
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.messmanagement.R
+import com.example.messmanagement.data.repository.DashboardRepository
 import com.example.messmanagement.session.SessionManager
-import com.example.messmanagement.ui.auth.LoginFragment
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private lateinit var sessionManager: SessionManager
+    private lateinit var repository: DashboardRepository
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+    override fun onViewCreated(
+        view: View,
         savedInstanceState: Bundle?
-    ): View {
+    ) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val view = inflater.inflate(
-            R.layout.fragment_dashboard,
-            container,
-            false
-        )
+        sessionManager =
+            SessionManager(requireContext())
 
-        sessionManager = SessionManager(requireContext())
+        repository =
+            DashboardRepository(requireContext())
 
-        val tvWelcome = view.findViewById<TextView>(R.id.tvWelcome)
-        val tvRole = view.findViewById<TextView>(R.id.tvRole)
-        val btnLogout = view.findViewById<Button>(R.id.btnLogout)
+        val tvWelcome =
+            view.findViewById<TextView>(R.id.tvWelcome)
 
-        val userName = sessionManager.getUserName()
-        val role = sessionManager.getUserRole()
+        val tvRole =
+            view.findViewById<TextView>(R.id.tvRole)
 
-        tvWelcome.text = "Welcome, $userName"
-        tvRole.text = "Role: $role"
+        val tvTotalMeals =
+            view.findViewById<TextView>(R.id.tvTotalMeals)
 
-        btnLogout.setOnClickListener {
+        val tvTotalExpenses =
+            view.findViewById<TextView>(R.id.tvTotalExpenses)
 
-            sessionManager.logout()
+        val tvTotalNotices =
+            view.findViewById<TextView>(R.id.tvTotalNotices)
 
-            requireActivity()
-                .supportFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.fragment_container,
-                    LoginFragment()
-                )
-                .commit()
-        }
+        val tvPendingPayments =
+            view.findViewById<TextView>(R.id.tvPendingPayments)
 
-        return view
+        val userName =
+            sessionManager.getUserName()
+
+        val role =
+            sessionManager.getUserRole()
+
+        tvWelcome.text =
+            "Welcome, $userName"
+
+        tvRole.text =
+            "Role: $role"
+
+        tvTotalMeals.text =
+            "Total Meals: ${repository.getTotalMeals()}"
+
+        tvTotalExpenses.text =
+            "Total Expenses: ${repository.getTotalExpenses()}"
+
+        tvTotalNotices.text =
+            "Total Notices: ${repository.getTotalNotices()}"
+
+        tvPendingPayments.text =
+            "Pending Payments: ${repository.getPendingPayments()}"
     }
 }

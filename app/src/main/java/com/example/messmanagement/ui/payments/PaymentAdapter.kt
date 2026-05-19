@@ -9,7 +9,8 @@ import com.example.messmanagement.R
 import com.example.messmanagement.data.model.Payment
 
 class PaymentAdapter(
-    private val paymentList: List<Payment>
+    private val paymentList: List<Payment>,
+    private val onItemClick: (Payment) -> Unit
 ) : RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder>() {
 
     class PaymentViewHolder(itemView: View) :
@@ -72,6 +73,10 @@ class PaymentAdapter(
 
         holder.textStatus.text =
             "Status: ${payment.status}"
+
+        holder.itemView.setOnClickListener {
+            onItemClick(payment)
+        }
     }
 
     override fun getItemCount(): Int {
