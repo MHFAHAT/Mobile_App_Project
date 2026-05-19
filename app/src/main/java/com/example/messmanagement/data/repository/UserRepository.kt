@@ -189,5 +189,30 @@ class UserRepository(context: Context) {
 
         return user
     }
+    fun updateProfile(
+        uid: String,
+        name: String,
+        phone: String,
+        roomNumber: String
+    ): Boolean {
+
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+
+            put("name", name)
+            put("phone", phone)
+            put("room_number", roomNumber)
+        }
+
+        val result = db.update(
+            "Users",
+            values,
+            "uid = ?",
+            arrayOf(uid)
+        )
+
+        return result > 0
+    }
 
 }
