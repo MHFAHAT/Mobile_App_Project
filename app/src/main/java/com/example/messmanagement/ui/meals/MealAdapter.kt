@@ -9,7 +9,8 @@ import com.example.messmanagement.R
 import com.example.messmanagement.data.model.Meal
 
 class MealAdapter(
-    private val mealList: List<Meal>
+    private val mealList: List<Meal>,
+    private val onItemClick: ((Meal) -> Unit)? = null
 ) : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
     class MealViewHolder(itemView: View)
@@ -44,7 +45,6 @@ class MealAdapter(
         holder: MealViewHolder,
         position: Int
     ) {
-
         val meal = mealList[position]
 
         holder.tvDate.text = meal.date
@@ -54,10 +54,13 @@ class MealAdapter(
 
         holder.tvDinner.text =
             "Dinner: ${meal.dinnerMenu}"
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(meal)
+        }
     }
 
     override fun getItemCount(): Int {
-
         return mealList.size
     }
 }

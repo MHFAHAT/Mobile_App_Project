@@ -152,7 +152,21 @@ class MealsFragment : Fragment() {
     private fun loadMeals() {
         val mealList = repository.getAllMeals()
 
-        adapter = MealAdapter(mealList)
+        adapter = MealAdapter(mealList) { selectedMeal ->
+            val editMealFragment = EditMealFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("meal_id", selectedMeal.mealId)
+                    putString("date", selectedMeal.date)
+                    putString("lunch_menu", selectedMeal.lunchMenu)
+                    putString("dinner_menu", selectedMeal.dinnerMenu)
+                }
+            }
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.home_fragment_container, editMealFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         recyclerMeals.layoutManager =
             LinearLayoutManager(requireContext())

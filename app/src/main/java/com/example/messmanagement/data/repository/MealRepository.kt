@@ -1,5 +1,6 @@
 package com.example.messmanagement.data.repository
 
+import android.content.ContentValues
 import android.content.Context
 import com.example.messmanagement.data.db.DatabaseHelper
 import com.example.messmanagement.data.model.Meal
@@ -93,5 +94,37 @@ class MealRepository(context: Context) {
         )
 
         return result != -1L
+    }
+    fun updateMeal(meal: Meal): Boolean {
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+            put("date", meal.date)
+            put("lunch_menu", meal.lunchMenu)
+            put("dinner_menu", meal.dinnerMenu)
+        }
+
+        val rowsUpdated = db.update(
+            "Meals",
+            values,
+            "meal_id = ?",
+            arrayOf(meal.mealId.toString())
+        )
+
+        db.close()
+        return rowsUpdated > 0
+    }
+
+    fun deleteMeal(mealId: Int): Boolean {
+        val db = dbHelper.writableDatabase
+
+        val rowsDeleted = db.delete(
+            "Meals",
+            "meal_id = ?",
+            arrayOf(mealId.toString())
+        )
+
+        db.close()
+        return rowsDeleted > 0
     }
 }
