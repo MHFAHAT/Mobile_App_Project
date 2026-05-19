@@ -77,4 +77,43 @@ class NoticeRepository(context: Context) {
 
         return result != -1L
     }
+
+    fun deleteNotice(
+        noticeId: Int
+    ): Boolean {
+
+        val db = dbHelper.writableDatabase
+
+        val result = db.delete(
+            "Notices",
+            "notice_id = ?",
+            arrayOf(noticeId.toString())
+        )
+
+        return result > 0
+    }
+
+    fun updateNotice(
+        noticeId: Int,
+        title: String,
+        message: String
+    ): Boolean {
+
+        val db = dbHelper.writableDatabase
+
+        val values = ContentValues().apply {
+
+            put("title", title)
+            put("message", message)
+        }
+
+        val result = db.update(
+            "Notices",
+            values,
+            "notice_id = ?",
+            arrayOf(noticeId.toString())
+        )
+
+        return result > 0
+    }
 }

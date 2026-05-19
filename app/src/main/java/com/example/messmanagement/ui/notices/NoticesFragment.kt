@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.messmanagement.R
 import com.example.messmanagement.data.repository.NoticeRepository
 import com.example.messmanagement.session.SessionManager
+import android.widget.Toast
 import com.example.messmanagement.ui.notices.AddNoticeFragment
+import com.example.messmanagement.ui.notices.EditNoticeFragment
 
 
 class NoticesFragment : Fragment(R.layout.fragment_notices) {
@@ -70,6 +72,76 @@ class NoticesFragment : Fragment(R.layout.fragment_notices) {
             repository.getAllNotices()
 
         recyclerNotices.adapter =
-            NoticeAdapter(noticeList)
+            NoticeAdapter(
+
+                noticeList,
+
+                onItemClick = { notice ->
+
+                    val role =
+                        sessionManager.getUserRole()
+
+                    if (role == "Resident") {
+                        return@NoticeAdapter
+                    }
+
+                    val bundle = Bundle().apply {
+
+                        putInt(
+                            "notice_id",
+                            notice.noticeId
+                        )
+
+                        putString(
+                            "title",
+                            notice.title
+                        )
+
+                        putString(
+                            "message",
+                            notice.message
+                        )
+                    }
+
+                    val fragment =
+                        EditNoticeFragment()
+
+                    fragment.arguments = bundle
+
+                    parentFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.home_fragment_container,
+                            fragment
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                },
+
+                onItemLongClick = { notice ->
+
+                    val role =
+                        sessionManager.getUserRole()
+
+                    if (role == "Resident") {
+                        return@NoticeAdapter
+                    }
+
+                    val success =
+                        repository.deleteNotice(
+                            notice.noticeId
+                        )
+
+                    if (success) {
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Notice Deleted",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        loadNotices()
+                    }
+                }
+            )
     }
 }

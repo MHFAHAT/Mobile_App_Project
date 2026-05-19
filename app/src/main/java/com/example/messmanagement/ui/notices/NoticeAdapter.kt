@@ -9,7 +9,9 @@ import com.example.messmanagement.R
 import com.example.messmanagement.data.model.Notice
 
 class NoticeAdapter(
-    private val noticeList: List<Notice>
+    private val noticeList: List<Notice>,
+    private val onItemClick: (Notice) -> Unit,
+    private val onItemLongClick: (Notice) -> Unit,
 ) : RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
     class NoticeViewHolder(view: View)
@@ -50,6 +52,17 @@ class NoticeAdapter(
         holder.tvTitle.text = notice.title
         holder.tvMessage.text = notice.message
         holder.tvTimestamp.text = notice.timestamp
+        holder.itemView.setOnClickListener {
+
+            onItemClick(notice)
+        }
+
+        holder.itemView.setOnLongClickListener {
+
+            onItemLongClick(notice)
+
+            true
+        }
     }
 
     override fun getItemCount(): Int {
